@@ -1,8 +1,6 @@
 # AssociationCount
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/association_count`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+A small gem that allows association counts to be included in your base query.
 
 ## Installation
 
@@ -22,7 +20,20 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+```ruby
+class Foo < ActiveRecord::Base
+  has_many  :bars
+  can_count :bars
+end
+
+class Bar < ActiveRecord::Base
+  belongs_to  :foo
+end
+
+# Now you can use this in order for each of your Foo instances to come with a preloaded bar_count
+foos = Foo.all.include_bar_count
+bar_counts = foos.map(&:bar_count) # only one SQL query executed
+```
 
 ## Development
 

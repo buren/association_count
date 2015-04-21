@@ -6,12 +6,10 @@ require 'association_count/version'
 Gem::Specification.new do |spec|
   spec.name          = "association_count"
   spec.version       = AssociationCount::VERSION
-  spec.authors       = ["Albin Svensson"]
-  spec.email         = ["albin.svensson@trialbee.com"]
-
-  spec.summary       = %q{TODO: Write a short summary, because Rubygems requires one.}
-  spec.description   = %q{TODO: Write a longer description or delete this line.}
-  spec.homepage      = "TODO: Put your gem's website or public repo URL here."
+  spec.authors       = ["Albin Svensson", 'Jacob Burenstam']
+  spec.email         = ["albin.svensson@trialbee.com", 'jacob.burenstam@trialbee.com']
+  spec.summary       = %q{ A small gem that allows association counts to be included in your base query }
+  spec.homepage      = "https://github.com/trialbee/association_count"
   spec.license       = "MIT"
 
   # Prevent pushing this gem to RubyGems.org by setting 'allowed_push_host', or
@@ -32,7 +30,6 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'rspec'
   spec.add_development_dependency "sqlite3-ruby"
   spec.add_development_dependency 'simplecov'   #, '~> 0.7.0'
-  spec.add_development_dependency 'activemodel'
   spec.add_development_dependency 'guard'
   spec.add_development_dependency 'guard-rspec'
 
