@@ -31,6 +31,10 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "rake", "~> 10.0"
   spec.add_development_dependency 'rspec'
   spec.add_development_dependency "sqlite3-ruby"
+  spec.add_development_dependency 'simplecov'   #, '~> 0.7.0'
+  spec.add_development_dependency 'activemodel'
+  spec.add_development_dependency 'guard'
+  spec.add_development_dependency 'guard-rspec'
 
   spec.add_dependency "activerecord"
 end
