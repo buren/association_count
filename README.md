@@ -1,6 +1,6 @@
 # AssociationCount
 
-A small gem that allows association counts to be included in your base query.
+A small gem for activerecord that allows association counts to be included in your base query.
 
 ## Installation
 
