@@ -1,6 +1,6 @@
 # AssociationCount [![Build Status](https://travis-ci.org/trialbee/association_count.svg?branch=master)](https://travis-ci.org/trialbee/association_count)
 
-A small gem that allows association counts to be included in your base query.
+A small gem for activerecord that allows association counts to be included in your base query.
 
 ## Installation
 
