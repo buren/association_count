@@ -35,6 +35,17 @@ foos = Foo.all.include_bar_count
 bar_counts = foos.map(&:bar_count) # only one SQL query executed
 ```
 
+This works for any `has_many` relationship even if it uses non standard foreign keys or is a `has_many :x, through: y`.
+
+By default the count will be distinct, if this is not desired use:
+
+```
+class Foo < ActiveRecord::Base
+  has_many  :bars
+  can_count :bars, distinct: false
+end
+```
+
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `bin/console` for an interactive prompt that will allow you to experiment.
