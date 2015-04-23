@@ -4,15 +4,14 @@ require 'active_record'
 ActiveRecord::Base.extend AssociationCount
 module AssociationCount
   def association_count(counted_model, distinct)
-    proc do |base_model, counted_model, distinct|
-      table_name    = base_model.table_name
-      counted_table = counted_model.table_name
-      counted_name  = counted_table.singularize
-      distinct_sql  = distinct ? 'DISTINCT' : ''
-      joins(counted_table.to_sym)
-        .select("#{table_name}.*, COUNT(#{distinct_sql} #{counted_table}.id) as #{counted_name}_count_raw")
-        .group("#{table_name}.id")
-    end.call(self, counted_model, distinct)
+    table_name    = self.table_name
+    counted_table = counted_model.table_name
+    counted_name  = counted_table.singularize
+    distinct_sql  = distinct ? 'DISTINCT' : ''
+
+    joins(counted_table.to_sym)
+      .select("#{table_name}.*, COUNT(#{distinct_sql} #{counted_table}.id) as #{counted_name}_count_raw")
+      .group("#{table_name}.id")
   end
 
   def can_count(model_name, opts = {})
