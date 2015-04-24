@@ -35,21 +35,37 @@ describe AssociationCount do
         end.to raise_error
       end
 
-      it 'raises no error if called in a good way' do
-        expect do
-          class ExtraPost < ActiveRecord::Base
-            has_many  :extra_answers
-            can_count :extra_answers
-          end
-          class ExtraAnswer < ActiveRecord::Base
-            belongs_to :extra_post
-          end
-          ep = ExtraPost.create(text: 'tmp')
-          ExtraAnswer.create(extra_post: ep, text: 'test')
-          expect(ep.extra_answer_count).to eq(1)
-          expect(ExtraPost.include_extra_answer_count.first.extra_answer_count).to eq(1)
-          expect(ExtraPost.include_extra_answer_count.first.extra_answer_count_raw).to eq(1)
-        end.to_not raise_error
+      context 'non standard cases' do
+        class ExtraPost < ActiveRecord::Base
+          has_many  :extra_answers
+          can_count :extra_answers
+          belongs_to :author
+          has_many :authors, through: :extra_answers
+          can_count :authors, distinct: false
+
+        end
+        class ExtraAnswer < ActiveRecord::Base
+          belongs_to :extra_post
+          belongs_to :author
+        end
+
+        it 'raises no error if called in a good way' do
+          expect do
+            ep = ExtraPost.create(text: 'tmp')
+            ExtraAnswer.create(extra_post: ep, text: 'test')
+            expect(ep.extra_answer_count).to eq(1)
+            expect(ExtraPost.include_extra_answer_count.first.extra_answer_count).to eq(1)
+            expect(ExtraPost.include_extra_answer_count.first.extra_answer_count_raw).to eq(1)
+          end.to_not raise_error
+        end
+
+        it 'does not count distinct if it is set to false' do
+          author = Author.create(name: 'Albin')
+          ep = ExtraPost.create(text: 'tmp', author: author)
+          ExtraAnswer.create(extra_post: ep, text: 'test', author: author)
+          ExtraAnswer.create(extra_post: ep, text: 'test', author: author)
+          expect(ExtraPost.all.include_author_count.last.author_count).to eq(2)
+        end
       end
     end
 
