@@ -11,6 +11,11 @@ describe AssociationCount do
     expect(res).to eq(2)
   end
 
+  it 'counts for has_many through relationships' do
+    res = Post.all.include_author_count.first.author_count
+    expect(res).to eq(1)
+  end
+
   it "can not reach the raw count if it is not included" do
     expect{ Post.all.first.answer_count_raw }.to raise_error
   end

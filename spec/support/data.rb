@@ -1,3 +1,5 @@
-p = Post.create(text: "First post!")
-Answer.create(text: 'A1', post: p)
-Answer.create(text: 'A2', post: p)
+au = Author.create(name: 'Albin')
+p  = Post.create(text: "First post!", author: au)
+ 
+Answer.create(text: 'A1', post: p, author: au)
+Answer.create(text: 'A2', post: p, author: au)
