@@ -1,4 +1,4 @@
-# AssociationCount [![Build Status](https://travis-ci.org/trialbee/association_count.svg?branch=master)](https://travis-ci.org/trialbee/association_count)
+# AssociationCount [![Build Status](https://travis-ci.org/trialbee/association_count.svg?branch=master)](https://travis-ci.org/trialbee/association_count) [![Code Climate](https://codeclimate.com/github/trialbee/association_count/badges/gpa.svg)](https://codeclimate.com/github/trialbee/association_count)
 
 A small gem that allows association counts to be included in your base query.
 
