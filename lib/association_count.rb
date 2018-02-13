@@ -1,9 +1,9 @@
 require 'association_count/version'
-require 'active_record'
 
-ActiveRecord::Base.extend AssociationCount
 module AssociationCount
-  def association_count(counted_model, distinct)
+  DEFAULT_DISTINCT = false
+
+  def association_count(counted_model, distinct: DEFAULT_DISTINCT)
     table_name    = self.table_name
     counted_table = counted_model.table_name
     counted_name  = counted_table.singularize
@@ -19,7 +19,7 @@ module AssociationCount
     reflection = reflections[model_name]
     fail "No such reflection: '#{model_name}'" unless reflection
 
-    options       = { distinct: true }.merge!(opts)
+    options       = { distinct: DEFAULT_DISTINCT }.merge!(opts)
     singular_name = model_name.singularize
 
     define_association_count_method(model_name, singular_name)
@@ -34,10 +34,12 @@ module AssociationCount
     end
   end
 
-  def define_count_scope(singular_name, reflection, distinct)
+  def define_count_scope(singular_name, reflection, default_distinct)
     scope_name = "include_#{singular_name}_count"
     class_eval do
-      scope scope_name, -> { association_count(reflection.klass, distinct) }
+      scope scope_name, ->(distinct: default_distinct) {
+        association_count(reflection.klass, distinct: distinct)
+      }
     end
   end
 end

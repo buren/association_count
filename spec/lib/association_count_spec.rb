@@ -11,8 +11,18 @@ describe AssociationCount do
     expect(res).to eq(2)
   end
 
-  it 'counts for has_many through relationships' do
+  it 'by default counts non-distinct for has_many through relationships' do
     res = Post.all.include_author_count.first.author_count
+    expect(res).to eq(2)
+  end
+
+  it 'counts non-distinct for has_many through relationships' do
+    res = Post.all.include_author_count(distinct: false).first.author_count
+    expect(res).to eq(2)
+  end
+
+  it 'counts distinct for has_many through relationships' do
+    res = Post.all.include_author_count(distinct: true).first.author_count
     expect(res).to eq(1)
   end
 
@@ -25,7 +35,6 @@ describe AssociationCount do
   end
 
   context "can_count" do
-  
     context 'new classes' do
       it 'raises an error if called in a bad way' do
         expect do

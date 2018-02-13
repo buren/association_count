@@ -1,6 +1,6 @@
-# AssociationCount [![Build Status](https://travis-ci.org/trialbee/association_count.svg?branch=master)](https://travis-ci.org/trialbee/association_count) [![Code Climate](https://codeclimate.com/github/trialbee/association_count/badges/gpa.svg)](https://codeclimate.com/github/trialbee/association_count)
+# AssociationCount [![Build Status](https://travis-ci.org/buren/association_count.svg?branch=master)](https://travis-ci.org/buren/association_count)
 
-A small gem for activerecord that allows association counts to be included in your base query.
+A small gem for ActiveRecord that allows association counts to be included in your base query.
 
 ## Installation
 
@@ -20,6 +20,36 @@ Or install it yourself as:
 
 ## Usage
 
+__Include in specific model__
+
+Simply add
+
+```ruby
+class Post < ApplicationRecord
+  extend AssociationCount
+
+  # [...]
+end
+```
+
+__Include in all models__
+
+Rails 5, add it to `ApplicationRecord`
+
+```ruby
+class ApplicationRecord < ActiveRecord::Base
+  self.abstract_class = true
+  # [...]
+  extend AssociationCount
+end
+```
+
+Rails 4, add it to `ActiveRecord::Base`
+
+```ruby
+ActiveRecord::Base.extend AssociationCount
+```
+
 ```ruby
 class Foo < ActiveRecord::Base
   has_many  :bars
@@ -30,9 +60,11 @@ class Bar < ActiveRecord::Base
   belongs_to  :foo
 end
 
-# Now you can use this in order for each of your Foo instances to come with a preloaded bar_count
-foos = Foo.all.include_bar_count
-bar_counts = foos.map(&:bar_count) # only one SQL query executed
+# Each Foo instance will come with a "preloaded" count method: bar_count
+Foo.all.include_bar_count.map(&:bar_count) # only one SQL query executed
+
+# you can also achieve the same with
+foos = Foo.all.association_count(Bar)
 ```
 
 This works for any `has_many` relationship even if it uses non standard foreign keys or is a `has_many :x, through: y`.
@@ -54,7 +86,7 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-1. Fork it ( https://github.com/trialbee/association_count/fork )
+1. Fork it ( https://github.com/buren/association_count/fork )
 2. Create your feature branch (`git checkout -b my-new-feature`)
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
