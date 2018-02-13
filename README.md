@@ -30,9 +30,11 @@ class Bar < ActiveRecord::Base
   belongs_to  :foo
 end
 
-# Now you can use this in order for each of your Foo instances to come with a preloaded bar_count
-foos = Foo.all.include_bar_count
-bar_counts = foos.map(&:bar_count) # only one SQL query executed
+# Each Foo instance will come with a "preloaded" count method: bar_count
+Foo.all.include_bar_count.map(&:bar_count) # only one SQL query executed
+
+# you can also achieve the same with
+foos = Foo.all.association_count(Bar)
 ```
 
 This works for any `has_many` relationship even if it uses non standard foreign keys or is a `has_many :x, through: y`.
