@@ -20,6 +20,36 @@ Or install it yourself as:
 
 ## Usage
 
+__Include in specific model__
+
+Simply add
+
+```ruby
+class Post < ApplicationRecord
+  extend AssociationCount
+
+  # [...]
+end
+```
+
+__Include in all models__
+
+Rails 5, add it to `ApplicationRecord`
+
+```ruby
+class ApplicationRecord < ActiveRecord::Base
+  self.abstract_class = true
+  # [...]
+  extend AssociationCount
+end
+```
+
+Rails 4, add it to `ActiveRecord::Base`
+
+```ruby
+ActiveRecord::Base.extend AssociationCount
+```
+
 ```ruby
 class Foo < ActiveRecord::Base
   has_many  :bars
