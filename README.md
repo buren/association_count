@@ -1,6 +1,6 @@
-# AssociationCount [![Build Status](https://travis-ci.org/trialbee/association_count.svg?branch=master)](https://travis-ci.org/trialbee/association_count) [![Code Climate](https://codeclimate.com/github/trialbee/association_count/badges/gpa.svg)](https://codeclimate.com/github/trialbee/association_count)
+# AssociationCount [![Build Status](https://travis-ci.org/buren/association_count.svg?branch=master)](https://travis-ci.org/buren/association_count) [![Code Climate](https://codeclimate.com/github/buren/association_count/badges/gpa.svg)](https://codeclimate.com/github/buren/association_count)
 
-A small gem for activerecord that allows association counts to be included in your base query.
+A small gem for ActiveRecord that allows association counts to be included in your base query.
 
 ## Installation
 
@@ -54,7 +54,7 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-1. Fork it ( https://github.com/trialbee/association_count/fork )
+1. Fork it ( https://github.com/buren/association_count/fork )
 2. Create your feature branch (`git checkout -b my-new-feature`)
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
