@@ -1,4 +1,4 @@
-# AssociationCount [![Build Status](https://travis-ci.org/buren/association_count.svg?branch=master)](https://travis-ci.org/buren/association_count) [![Code Climate](https://codeclimate.com/github/buren/association_count/badges/gpa.svg)](https://codeclimate.com/github/buren/association_count)
+# AssociationCount [![Build Status](https://travis-ci.org/buren/association_count.svg?branch=master)](https://travis-ci.org/buren/association_count)
 
 A small gem for ActiveRecord that allows association counts to be included in your base query.
 
