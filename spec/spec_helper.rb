@@ -5,7 +5,10 @@ SimpleCov.start 'rails'
 
 require 'association_count'
 
-ActiveRecord::Base.establish_connection(:adapter => "sqlite3", 
+require 'active_record'
+
+ActiveRecord::Base.extend AssociationCount
+ActiveRecord::Base.establish_connection(:adapter => "sqlite3",
                                        :database => File.dirname(__FILE__) + "/association_count.sqlite3")
 load File.dirname(__FILE__) + '/support/schema.rb'
 load File.dirname(__FILE__) + '/support/models.rb'

@@ -1,7 +1,5 @@
 require 'association_count/version'
-require 'active_record'
 
-ActiveRecord::Base.extend AssociationCount
 module AssociationCount
   DEFAULT_DISTINCT = false
 

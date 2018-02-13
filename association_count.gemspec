@@ -24,6 +24,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'simplecov',    '~> 0.7'
   spec.add_development_dependency 'guard',        '~> 2.12'
   spec.add_development_dependency 'guard-rspec',  '~> 4.5'
-
-  spec.add_dependency 'activerecord', '>= 4.0'
+  spec.add_development_dependency 'activerecord', '>= 4.0'
 end
