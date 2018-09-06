@@ -8,3 +8,6 @@
 /spec/reports/
 /tmp/
 *.gem
+
+# ignore test database
+spec/association_count.sqlite3
