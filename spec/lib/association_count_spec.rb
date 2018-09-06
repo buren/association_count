@@ -6,6 +6,11 @@ describe AssociationCount do
     expect(authors.length).to eq(2)
   end
 
+  it "does not include records that have 0 associations if join_type is inner join" do
+    authors = Author.all.include_post_count(join_type: :joins)
+    expect(authors.length).to eq(1)
+  end
+
   it "counts associations of a given type" do
     res = Post.all.first.answer_count
     expect(res).to eq(2)
