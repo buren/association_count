@@ -53,7 +53,7 @@ describe AssociationCount do
           class ExtraPost < ActiveRecord::Base
             can_count :answers
           end
-        end.to raise_error(RuntimeError)
+        end.to raise_error(ArgumentError, "No such reflection: 'answers'")
       end
 
       context 'non standard cases' do

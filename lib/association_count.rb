@@ -18,7 +18,7 @@ module AssociationCount
   def can_count(model_name, opts = {})
     model_name = model_name.to_s
     reflection = reflections[model_name]
-    fail "No such reflection: '#{model_name}'" unless reflection
+    raise ArgumentError, "No such reflection: '#{model_name}'" unless reflection
 
     options = {
       distinct: DEFAULT_DISTINCT,
