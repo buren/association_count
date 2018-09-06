@@ -50,6 +50,7 @@ Rails 4, add it to `ActiveRecord::Base`
 ActiveRecord::Base.extend AssociationCount
 ```
 
+Full example
 ```ruby
 class Foo < ActiveRecord::Base
   has_many  :bars
@@ -69,13 +70,20 @@ foos = Foo.all.association_count(Bar)
 
 This works for any `has_many` relationship even if it uses non standard foreign keys or is a `has_many :x, through: y`.
 
-By default the count will be distinct, if this is not desired use:
+:information_source: By default we will use left outer join and __not__ distinct.
 
-```
+You can configure this on per model basis
+```ruby
 class Foo < ActiveRecord::Base
   has_many  :bars
-  can_count :bars, distinct: false
+  can_count :bars, distinct: true, join_type: :joins # can also be left_outer_joins
 end
+```
+
+or on a case by case basis
+
+```ruby
+Foo.all.include_bar_count(distinct: false, join_type: :left_outer_joins)
 ```
 
 ## Development
