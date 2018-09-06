@@ -6,6 +6,11 @@ describe AssociationCount do
     expect(authors.length).to eq(2)
   end
 
+  it "does not include records that have 0 associations if join_type is inner join" do
+    authors = Author.all.include_post_count(join_type: :joins)
+    expect(authors.length).to eq(1)
+  end
+
   it "counts associations of a given type" do
     res = Post.all.first.answer_count
     expect(res).to eq(2)
@@ -32,11 +37,13 @@ describe AssociationCount do
   end
 
   it "can not reach the raw count if it is not included" do
-    expect{ Post.all.first.answer_count_raw }.to raise_error
+    expect { Post.all.first.answer_count_raw }.to raise_error(NoMethodError)
   end
 
   it "can reach the raw count if it is included" do
-    expect{ Post.all.include_answer_count.first.answer_count_raw }.to_not raise_error
+    expect do
+      Post.all.include_answer_count.first.answer_count_raw
+    end.to_not raise_error
   end
 
   context "can_count" do
@@ -46,7 +53,7 @@ describe AssociationCount do
           class ExtraPost < ActiveRecord::Base
             can_count :answers
           end
-        end.to raise_error
+        end.to raise_error(ArgumentError, "No such reflection: 'answers'")
       end
 
       context 'non standard cases' do
@@ -82,6 +89,5 @@ describe AssociationCount do
         end
       end
     end
-
   end
 end
