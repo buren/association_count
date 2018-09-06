@@ -1,10 +1,11 @@
 require 'association_count/version'
 
 module AssociationCount
-  DEFAULT_DISTINCT = false
-  DEFAULT_JOIN_TYPE = :left_outer_joins
-
-  def association_count(counted_model, distinct: DEFAULT_DISTINCT, join_type: DEFAULT_JOIN_TYPE)
+  def association_count(
+    counted_model,
+    distinct: AssociationCount.config.distinct,
+    join_type: AssociationCount.config.join_type
+  )
     table_name    = self.table_name
     counted_table = counted_model.table_name
     counted_name  = counted_table.singularize
@@ -21,8 +22,8 @@ module AssociationCount
     raise ArgumentError, "No such reflection: '#{model_name}'" unless reflection
 
     options = {
-      distinct: DEFAULT_DISTINCT,
-      join_type: DEFAULT_JOIN_TYPE
+      distinct: AssociationCount.config.distinct,
+      join_type: AssociationCount.config.join_type
     }.merge!(opts)
     singular_name = model_name.singularize
 
@@ -44,6 +45,37 @@ module AssociationCount
       scope scope_name, ->(distinct: default_distinct, join_type: default_join_type) {
         association_count(reflection.klass, distinct: distinct, join_type: join_type)
       }
+    end
+  end
+
+  def self.configuration
+    @configuration ||= Configuration.new
+  end
+
+  def self.config
+    configuration
+  end
+
+  def self.configure
+    yield(configuration) if block_given?
+    configuration
+  end
+
+  class Configuration
+    attr_accessor :distinct
+    attr_reader :join_type
+
+    def initialize
+      @distinct = false
+      @join_type = :left_outer_joins
+    end
+
+    def join_type=(type)
+      type = type.to_sym
+      unless %i[left_outer_joins joins].include?(type)
+        raise(ArgumentError, "unknown join type '#{type}', must be one of left_outer_joins, joins")
+      end
+      @join_type = type.to_sym
     end
   end
 end
