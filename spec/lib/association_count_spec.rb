@@ -1,6 +1,11 @@
 require 'spec_helper'
 
 describe AssociationCount do
+  it "includes records that have 0 associations" do
+    authors = Author.all.include_post_count
+    expect(authors.length).to eq(2)
+  end
+
   it "counts associations of a given type" do
     res = Post.all.first.answer_count
     expect(res).to eq(2)

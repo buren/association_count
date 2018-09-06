@@ -1,9 +1,10 @@
 class Post < ActiveRecord::Base
   has_many  :answers
-  can_count :answers
   has_many  :authors, through: :answers
-  can_count :authors
   belongs_to :author
+
+  can_count :answers
+  can_count :authors
 end
 
 class Answer < ActiveRecord::Base
@@ -14,4 +15,6 @@ end
 class Author < ActiveRecord::Base
   has_many :posts
   has_many :answers
+
+  can_count :posts
 end
