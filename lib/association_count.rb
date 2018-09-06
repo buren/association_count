@@ -9,7 +9,7 @@ module AssociationCount
     counted_name  = counted_table.singularize
     distinct_sql  = distinct ? 'DISTINCT' : ''
 
-    joins(counted_table.to_sym)
+    left_outer_joins(counted_table.to_sym)
       .select("#{table_name}.*, COUNT(#{distinct_sql} #{counted_table}.id) as #{counted_name}_count_raw")
       .group("#{table_name}.id")
   end
