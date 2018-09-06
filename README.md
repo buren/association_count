@@ -1,5 +1,10 @@
 # AssociationCount [![Build Status](https://travis-ci.org/buren/association_count.svg?branch=master)](https://travis-ci.org/buren/association_count)
 
+Get ActiveRecord association count with ease and without worrying about N+1 queries:
+```ruby
+Author.all.include_post_count.map(&:post_count)
+```
+
 A small gem for ActiveRecord that allows association counts to be included in your base query.
 
 ## Installation
@@ -84,6 +89,15 @@ or on a case by case basis
 
 ```ruby
 Foo.all.include_bar_count(distinct: false, join_type: :left_outer_joins)
+```
+
+## Configuration
+
+```ruby
+AssociationCount.configure do |config|
+  config.distinct = false
+  config.join_type = :joins # or left_outer_joins
+end
 ```
 
 ## Development

@@ -8,7 +8,8 @@ Gem::Specification.new do |spec|
   spec.version       = AssociationCount::VERSION
   spec.authors       = ['Albin Svensson', 'Jacob Burenstam']
   spec.email         = ['burenstam@gmail.com']
-  spec.summary       = 'A small gem for ActiveRecord that allows association counts to be included in your base query'
+  spec.summary       = 'Get an ActiveRecord association count with ease and without worrying about N+1 queries.'
+  spec.description   = 'Get an ActiveRecord association count with ease and without worrying about N+1 queries. A small gem for ActiveRecord that allows association counts to be included in your base query.'
   spec.homepage      = 'https://github.com/buren/association_count'
   spec.license       = 'MIT'
 
