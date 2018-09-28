@@ -12,7 +12,7 @@ module AssociationCount
     distinct_sql  = distinct ? 'DISTINCT' : ''
 
     public_send(join_type, counted_table.to_sym)
-      .select("#{table_name}.*, COUNT(#{distinct_sql} #{counted_table}.id) as #{counted_name}_count_raw")
+      .select("#{table_name}.*").select("COUNT(#{distinct_sql} #{counted_table}.id) as #{counted_name}_count_raw")
       .group("#{table_name}.id")
   end
 
